@@ -58,9 +58,9 @@ largest_i(unsigned char *src, int size, unsigned char val)
 
 /* 1-1 map pixels to characters from lightlevel string and print to stdout */
 void
-print_ascii(struct image *img)
+print_ascii(struct image *img, int inv, char *lvls)
 {
-        int            i, len;
+        int            i, ind, len;
         unsigned char *sections;
 
         len = strlen(def_lvls);
@@ -75,7 +75,11 @@ print_ascii(struct image *img)
                 if (i % img->w == 0 && i != 0)
                         putchar('\n');
 
-                putchar(def_lvls[largest_i(sections, len, img->data[i])]);
+                ind = largest_i(sections, len, img->data[i]);
+                if (inv)
+                        ind = len - ind - 1;
+
+                putchar(lvls == NULL ? def_lvls[ind] : lvls[ind]);
         }
 
         putchar('\n');

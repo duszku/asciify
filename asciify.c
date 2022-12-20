@@ -19,6 +19,7 @@
 #define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "convert.h"
 
@@ -30,6 +31,8 @@ struct opts {
 };
 
 void     usage(void);
+void     def_opts(struct opts *);
+int      parse_opts(struct opts *, char *const *, int);
 
 /*
  * ASCIIFY is a small and simple image to ascii-art converter that takes a path
@@ -37,15 +40,20 @@ void     usage(void);
  * fixed width and length.
  */
 int
-main(int argc, const char **argv)
+main(int argc, char *const *argv)
 {
-        FILE   *in;
         struct  image img;
+        struct  opts opts;
+        FILE   *in;
+        int     pos;
 
-        if (argc != 2)
+        if (argc < 2)
                 usage();
 
-        if ((in = fopen(argv[1], "rb")) == NULL)
+        def_opts(&opts);
+        pos = parse_opts(&opts, argv, argc);
+
+        if ((in = fopen(argv[pos], "rb")) == NULL)
                 ERROR("fopen");
 
         read_img(in, &img);
@@ -53,7 +61,7 @@ main(int argc, const char **argv)
         if (fclose(in) == EOF)
                 ERROR("fclose");
 
-        print_ascii(&img);
+        print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
 
@@ -67,4 +75,37 @@ usage(void)
         fprintf(stderr, "USAGE: asciify [options] file\n");
         fprintf(stderr, "Try \"asciify -h\" for help or consult the manpage\n");
         exit(EXIT_FAILURE);
+}
+
+/* Set all options to their default values */
+void
+def_opts(struct opts *opts)
+{
+        opts->widt = opts->heig = 0;
+        opts->lvls = NULL;
+        opts->b_lg = 0;
+}
+
+/* Parse options, fill optstruct and return index of first positional arg */
+int
+parse_opts(struct opts *opts, char *const *argv, int argc)
+{
+        char c;
+
+        while ((c = getopt(argc, argv, "is:")) != -1) {
+                switch (c) {
+                case 'i':
+                        opts->b_lg = 1;
+                        break;
+                case 's':
+                        opts->lvls = calloc(strlen(optarg) + 1, 1);
+                        if (opts->lvls == NULL)
+                                ERROR("calloc");
+                        break;
+                default:
+                        usage();
+                }
+        }
+
+        return optind;
 }
