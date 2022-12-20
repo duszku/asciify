@@ -64,6 +64,8 @@ main(int argc, char *const *argv)
         print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
+        if (opts.lvls != NULL)
+                free(opts.lvls);
 
         return EXIT_SUCCESS;
 }
@@ -101,6 +103,8 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
                         opts->lvls = calloc(strlen(optarg) + 1, 1);
                         if (opts->lvls == NULL)
                                 ERROR("calloc");
+
+                        strcpy(opts->lvls, optarg);
                         break;
                 default:
                         usage();

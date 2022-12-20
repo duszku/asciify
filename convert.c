@@ -63,7 +63,7 @@ print_ascii(struct image *img, int inv, char *lvls)
         int            i, ind, len;
         unsigned char *sections;
 
-        len = strlen(def_lvls);
+        len = strlen(lvls == NULL ? def_lvls : lvls);
 
         if ((sections = calloc(len, sizeof(unsigned char))) == NULL)
                 ERROR("calloc");
