@@ -15,11 +15,14 @@ BINDIR=bin
 
 .PHONY: asciify clean
 
-asciify: ${OBJ}
+asciify: ${OBJ} ${BINDIR}
 	${CC} ${L_FLAGS} -o ${BINDIR}/$@ ${OBJ}
 
 .c.o:
 	${CC} ${C_FLAGS} -c -o $@ $<
+
+${BINDIR}:
+	mkdir ${BINDIR}
 
 clean:
 	rm -f *.o
