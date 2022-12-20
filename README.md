@@ -53,8 +53,6 @@ result you may simply redirect the output to a file of your choice:
 Planned features include:
 
 - fixing size of the output to given values
-- producing different outputs for dark and light backgrounds
-- custom light-level strings generating different outputs
 - running on multiple files
 
 ## Pull requests
