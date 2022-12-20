@@ -17,6 +17,10 @@
  */
 
 #define _POSIX_C_SOURCE 200809L
+
+#include <sys/stat.h>
+
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -83,8 +87,10 @@ usage(void)
 void
 help(void)
 {
-        fprintf(stderr, "USAGE: asciify [-i] [-s string] file\n");
+        fprintf(stderr, "USAGE: asciify [-hi] [-s string] [-o outfile] file\n");
+        fprintf(stderr, "\t-h\tdisplay this help screen\n");
         fprintf(stderr, "\t-i\tinvert colours\n");
+        fprintf(stderr, "\t-o pth\twrite output to pth instead of stdout\n");
         fprintf(stderr, "\t-s str\tuse str instead of default charset\n");
 }
 
@@ -103,13 +109,18 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
 {
         char c;
 
-        while ((c = getopt(argc, argv, "his:")) != -1) {
+        while ((c = getopt(argc, argv, "hio:s:")) != -1) {
                 switch (c) {
                 case 'h':
                         help();
                         exit(EXIT_SUCCESS);
                 case 'i':
                         opts->b_lg = 1;
+                        break;
+                case 'o':
+                        close(STDOUT_FILENO);
+                        if (open(optarg, O_WRONLY | O_CREAT, 0777) == -1)
+                                ERROR("open");
                         break;
                 case 's':
                         opts->lvls = calloc(strlen(optarg) + 1, 1);
