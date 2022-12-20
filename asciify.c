@@ -22,8 +22,6 @@
 
 #include "convert.h"
 
-const char *const def_lvls = " .,;[$&@#";
-
 struct opts {
         long         widt;      /* width of the output in columns */
         long         heig;      /* height of the output in lines */
@@ -57,7 +55,7 @@ main(int argc, const char **argv)
 
         print_ascii(&img);
 
-        stbi_image_free(img.data);
+        free(img.data);
 
         return EXIT_SUCCESS;
 }

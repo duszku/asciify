@@ -4,14 +4,14 @@ VERSION="0.0"
 
 # Debug flags
 C_FLAGS=-Wall -Wextra -Werror -ansi -pedantic -g -Og \
-	-fsanitize=address,leak,undefined -D${VERSION}
+	-fsanitize=address,leak,undefined
 L_FLAGS=-lasan -lubsan -lm
 
 # Release flags
 #C_FLAGS=-Wall -O2
 #L_FLAGS=-lm
 
-SRC=asciify.c
+SRC=asciify.c convert.c
 OBJ=${SRC:.c=.o}
 BINDIR=bin
 

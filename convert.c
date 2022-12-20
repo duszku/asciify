@@ -16,7 +16,12 @@
  * this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
+
 #include "convert.h"
+
+const char *const def_lvls = DEF_LVLS;
 
 /* Read image file fp and store result in dest. Return number of pixels */
 int

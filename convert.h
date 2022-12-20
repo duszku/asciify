@@ -25,15 +25,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-
 /* Report unrecoverable error and exit */
 #define ERROR(X) do {                                       \
         fprintf(stderr, "[%s:%d] ", __FILE__, __LINE__);    \
         perror((X));                                        \
         exit(EXIT_FAILURE);                                 \
 } while (0)
+
+/* Default codomain for lightlevel mapping */
+#define DEF_LVLS " .,;^*+=$&@#"
+extern const char *const def_lvls;
 
 struct image {
         unsigned char *data;
@@ -44,6 +45,5 @@ struct image {
 int   read_img(FILE *, struct image *);
 int   largest_i(unsigned char *, int, unsigned char);
 void  print_ascii(struct image *);
-
 
 #endif /* CONVERT_H */
