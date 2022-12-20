@@ -3,13 +3,13 @@ CC=gcc
 # Debug flags
 C_FLAGS=-Wall -Wextra -Werror -ansi -pedantic -g -Og \
 	-fsanitize=address,leak,undefined
-L_FLAGS=-lubsan -lasan -lm
+L_FLAGS=-lasan -lubsan -lm
 
 # Release flags
 #C_FLAGS=-Wall -O2
 #L_FLAGS=-lm
 
-SRC=
+SRC=asciify.c
 OBJ=${SRC:.c=.o}
 BINDIR=bin
 
