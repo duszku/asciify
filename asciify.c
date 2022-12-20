@@ -31,6 +31,7 @@ struct opts {
 };
 
 void     usage(void);
+void     help(void);
 void     def_opts(struct opts *);
 int      parse_opts(struct opts *, char *const *, int);
 
@@ -79,6 +80,14 @@ usage(void)
         exit(EXIT_FAILURE);
 }
 
+void
+help(void)
+{
+        fprintf(stderr, "USAGE: asciify [-i] [-s string] file\n");
+        fprintf(stderr, "\t-i\tinvert colours\n");
+        fprintf(stderr, "\t-s str\tuse str instead of default charset\n");
+}
+
 /* Set all options to their default values */
 void
 def_opts(struct opts *opts)
@@ -94,8 +103,11 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
 {
         char c;
 
-        while ((c = getopt(argc, argv, "is:")) != -1) {
+        while ((c = getopt(argc, argv, "his:")) != -1) {
                 switch (c) {
+                case 'h':
+                        help();
+                        exit(EXIT_SUCCESS);
                 case 'i':
                         opts->b_lg = 1;
                         break;
