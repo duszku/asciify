@@ -1,8 +1,10 @@
 CC=gcc
 
+VERSION="0.0"
+
 # Debug flags
 C_FLAGS=-Wall -Wextra -Werror -ansi -pedantic -g -Og \
-	-fsanitize=address,leak,undefined
+	-fsanitize=address,leak,undefined -D${VERSION}
 L_FLAGS=-lasan -lubsan -lm
 
 # Release flags
