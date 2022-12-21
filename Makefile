@@ -18,7 +18,7 @@ BINDIR=bin
 .PHONY: asciify clean
 
 asciify: ${OBJ} ${BINDIR}
-	${CC} ${L_FLAGS} -o ${BINDIR}/$@ ${OBJ}
+	${CC} -o ${BINDIR}/$@ ${OBJ} ${L_FLAGS}
 
 .c.o:
 	${CC} ${C_FLAGS} -c -o $@ $<
