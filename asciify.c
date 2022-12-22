@@ -27,6 +27,10 @@
 
 #include "convert.h"
 
+#ifndef VERSION
+#define VERSION "err"
+#endif
+
 struct opts {
         long         widt;      /* width of the output in columns */
         long         heig;      /* height of the output in lines */
@@ -36,6 +40,8 @@ struct opts {
 
 void     usage(void);
 void     help(void);
+void     version(void);
+
 void     def_opts(struct opts *);
 int      parse_opts(struct opts *, char *const *, int);
 
@@ -88,11 +94,24 @@ usage(void)
 void
 help(void)
 {
-        fprintf(stderr, "USAGE: asciify [-hi] [-s string] [-o outfile] file\n");
+        fprintf(stderr, "USAGE: asciify %s %s file\n",
+            "[-hiv]", "[-s string] [-o outfile]");
         fprintf(stderr, "\t-h\tdisplay this help screen\n");
         fprintf(stderr, "\t-i\tinvert colours\n");
         fprintf(stderr, "\t-o pth\twrite output to pth instead of stdout\n");
         fprintf(stderr, "\t-s str\tuse str instead of default charset\n");
+        fprintf(stderr, "\t-v\tprint version number and exit\n");
+}
+
+void
+version(void)
+{
+        fprintf(stderr, "asciify (ASCIIFY) %s\n", VERSION);
+        fprintf(stderr, "Copyright (C) 2022 https://github.com/duszku\n");
+        fprintf(stderr, "This is free software; see the source for copying\
+ conditions.  There is NO\n");
+        fprintf(stderr, "warranty; not even for MERCHANTABILITY or FITNESS FOR\
+ A PARTICULAR PURPOSE.\n");
 }
 
 /* Set all options to their default values */
@@ -110,7 +129,7 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
 {
         char c;
 
-        while ((c = getopt(argc, argv, "hio:s:")) != -1) {
+        while ((c = getopt(argc, argv, "hio:s:v")) != -1) {
                 switch (c) {
                 case 'h':
                         help();
@@ -130,6 +149,9 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
 
                         strcpy(opts->lvls, optarg);
                         break;
+                case 'v':
+                        version();
+                        exit(EXIT_SUCCESS);
                 default:
                         usage();
                 }

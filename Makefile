@@ -1,6 +1,6 @@
 CC=gcc
 
-VERSION="0.2"
+VERSION=\"0.2\"
 
 # Debug flags
 C_FLAGS=-Wall -Wextra -Werror -ansi -pedantic -g -Og \
@@ -21,7 +21,7 @@ asciify: ${OBJ} ${BINDIR}
 	${CC} -o ${BINDIR}/$@ ${OBJ} ${L_FLAGS}
 
 .c.o:
-	${CC} ${C_FLAGS} -c -o $@ $<
+	${CC} ${C_FLAGS} -DVERSION=${VERSION} -c -o $@ $<
 
 ${BINDIR}:
 	mkdir ${BINDIR}
