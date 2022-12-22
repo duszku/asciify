@@ -61,7 +61,6 @@ or, alternatively you may use the `-o` option:
 Planned features include:
 
 - fixing size of the output to given values
-- compressing pictures vertically _(now they look uncannily stretched)_
 - optional normalization of light level, so that each picture uses full charset
 
 ## Pull requests
