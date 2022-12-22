@@ -1,6 +1,6 @@
 CC=gcc
 
-VERSION="0.0"
+VERSION="0.2"
 
 # Debug flags
 C_FLAGS=-Wall -Wextra -Werror -ansi -pedantic -g -Og \
