@@ -66,6 +66,7 @@ main(int argc, char *const *argv)
         if (fclose(in) == EOF)
                 ERROR("fclose");
 
+        compress(&img);
         print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
