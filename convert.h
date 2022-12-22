@@ -34,7 +34,6 @@
 
 /* Default codomain for lightlevel mapping */
 #define DEF_LVLS " .,;^*+=$&@#"
-extern const char *const def_lvls;
 
 struct image {
         unsigned char *data;
