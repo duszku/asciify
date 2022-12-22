@@ -23,6 +23,8 @@
 
 const char *const def_lvls = DEF_LVLS;
 
+static int   largest_i(unsigned char *, int, unsigned char);
+
 /* Read image file fp and store result in dest. Return number of pixels */
 int
 read_img(FILE *fp, struct image *dest)

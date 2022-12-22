@@ -42,7 +42,6 @@ struct image {
 };
 
 int   read_img(FILE *, struct image *);
-int   largest_i(unsigned char *, int, unsigned char);
 void  print_ascii(struct image *, int, char *);
 
 #endif /* CONVERT_H */
