@@ -66,6 +66,7 @@ c2i(int x, int y, struct image *img)
         return x + (y * img->w);
 }
 
+/* Compress image vertically to get rid of the uncanny stretch */
 void
 compress(struct image *img)
 {
@@ -103,12 +104,12 @@ compress(struct image *img)
         img->h    = n_h;
 }
 
-/* 1-1 map pixels to characters from lightlevel string and print to stdout */
+/* 1-1 map pixels to characters from lightlevel string and print to fd 1 */
 void
 print_ascii(struct image *img, int inv, char *lvls)
 {
-        int            i, ind, len;
         unsigned char *sections;
+        int      i, ind, len;
 
         len = strlen(lvls == NULL ? def_lvls : lvls);
 
