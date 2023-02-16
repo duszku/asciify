@@ -62,9 +62,3 @@ Planned features include:
 
 - fixing size of the output to given values
 - optional normalization of light level, so that each picture uses full charset
-
-## Pull requests
-
-I would appreciate if any and all pull requests consisted of 80-columns POSIX C
-code written in
-[KNF style](https://man.openbsd.org/style).
