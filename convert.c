@@ -66,44 +66,6 @@ c2i(int x, int y, struct image *img)
         return x + (y * img->w);
 }
 
-/* Compress image vertically to get rid of the uncanny stretch */
-void
-compress(struct image *img)
-{
-        unsigned char *new;
-        unsigned tmp;
-        int      n_h, odd_h, i, j;
-
-        odd_h = img->h % 2 == 1;
-        n_h   = (odd_h ? img->h + 1 : img->h) >> 1;
-
-        if ((new = calloc(n_h * img->w, sizeof(char))) == NULL)
-                ERROR("calloc");
-
-        for (i = 0; i < n_h; ++i) {
-                if (odd_h && i == n_h - 1) {
-                        for (j = 0; j < img->w; ++j) {
-                                tmp = img->data[c2i(j, 2 * i, img)] >> 1;
-                                new[c2i(j, i, img)] = tmp;
-                        }
-
-                        break;
-                }
-
-                for (j = 0; j < img->w; ++j) {
-                        tmp   = img->data[c2i(j, 2 * i, img)];
-                        tmp  += img->data[c2i(j, 2 * i + 1, img)];
-                        tmp >>= 1;
-
-                        new[c2i(j, i, img)] = tmp;
-                }
-        }
-
-        free(img->data);
-        img->data = new;
-        img->h    = n_h;
-}
-
 /* 1-1 map pixels to characters from lightlevel string and print to fd 1 */
 void
 print_ascii(struct image *img, int inv, char *lvls)
