@@ -72,7 +72,7 @@ main(int argc, char *const *argv)
         if (fclose(in) == EOF)
                 ERROR("fclose");
 
-        compress(&img);
+        scd_fac_y(&img, 2);
         print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
