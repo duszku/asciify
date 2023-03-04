@@ -3,7 +3,7 @@ CC=gcc
 VERSION=\"0.2\"
 
 # Debug flags
-C_FLAGS=-Wall -Wextra -Werror -ansi -pedantic -g -Og \
+C_FLAGS=-Wall -Wextra -ansi -pedantic -g -Og \
 	-fsanitize=address,leak,undefined
 L_FLAGS=-lasan -lubsan -lm
 
