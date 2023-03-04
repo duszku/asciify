@@ -127,7 +127,7 @@ scd_fac_y(struct image *img, double fac)
                                 new[j + i * img->w] += img->data[c2i(j,k, img)];
 
                         new[j + i * img->w] = (double)new[j + i * img->w]
-                            / fr_sz;
+                            / (b_d - b_u);
                 }
         }
 
@@ -162,7 +162,8 @@ scd_fac_x(struct image *img, double fac)
                         for (k = b_l; k < b_r; ++k)
                                 new[i + j * new_w] += img->data[c2i(k, j, img)];
 
-                        new[i + j * new_w] = (double)new[i + j * new_w] / fr_sz;
+                        new[i + j * new_w] = (double)new[i + j * new_w]
+                            / (b_r - b_l);
                 }
         }
 
