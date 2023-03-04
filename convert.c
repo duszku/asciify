@@ -21,6 +21,9 @@
 
 #include "convert.h"
 
+#define MAX(X,Y)    ((X) > (Y) ? (X) : (Y))
+#define MIN(X,Y)    ((X) < (Y) ? (X) : (Y))
+
 const char *const def_lvls = DEF_LVLS;
 
 static int   largest_i(unsigned char *, int, unsigned char);
