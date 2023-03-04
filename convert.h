@@ -41,7 +41,7 @@ struct image {
         int            h;
 };
 
-int   read_img(FILE *, struct image *);         /* read image from file */
-void  print_ascii(struct image *, int, char *); /* print to fd 1 */
+int      read_img(FILE *, struct image *);         /* read image from file */
+void     print_ascii(struct image *, int, char *); /* print to fd 1 */
 
 #endif /* CONVERT_H */
