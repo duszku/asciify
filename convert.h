@@ -36,9 +36,9 @@
 #define DEF_LVLS " .,;^*+=$&@#"
 
 struct image {
-        unsigned char *data;
-        int            w;
-        int            h;
+        unsigned     char *data;
+        int          w;
+        int          h;
 };
 
 int      read_img(FILE *, struct image *);         /* read image from file */
