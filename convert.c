@@ -106,6 +106,9 @@ scd_fac_y(struct image *img, double fac)
         int          fr_sz, fr_d, fr_u, new_h, i, j, k;
         int          b_d, b_u;
 
+        if (fac <= 1)
+                return;
+
         fr_sz = ceil(fac);
         fr_d  = ceil((double)(fr_sz - 1) / 2);
         fr_u  = MAX(0, fr_sz - fr_d - 1);
@@ -139,6 +142,9 @@ scd_fac_x(struct image *img, double fac)
         unsigned     char *new;
         int          fr_sz, fr_l, fr_r, new_w, i, j, k;
         int          b_l, b_r;
+
+        if (fac <= 1)
+                return;
 
         fr_sz = ceil(fac);
         fr_l  = ceil((double)(fr_sz - 1) / 2);
