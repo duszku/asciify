@@ -98,3 +98,37 @@ print_ascii(struct image *img, int inv, char *lvls)
         putchar('\n');
         free(sections);
 }
+
+void
+scd_fac_y(struct image *img, double fac)
+{
+        unsigned     char *new;
+        int          fr_sz, fr_d, fr_u, new_h, i, j, k;
+        int          b_d, b_u;
+
+        fr_sz = ceil(fac);
+        fr_d  = ceil((double)(fr_sz - 1) / 2);
+        fr_u  = MAX(0, fr_sz - fr_d - 1);
+        new_h = img->h / fac;
+
+        if ((new = calloc(new_h * img->w, sizeof(char))) == NULL)
+                ERROR("calloc");
+
+        for (j = 0; j < img->w; ++j) {
+                for (i = 0; i < new_h; ++i) {
+                        /* calculating summation bounds */
+                        b_d = MAX(0, i * fr_sz - fr_u);
+                        b_u = MIN(img->h, i * fr_sz + fr_d);
+
+                        for (k = b_d; k < b_u; ++k)
+                                new[j + i * img->w] += img->data[c2i(j,k, img)];
+
+                        new[j + i * img->w] = (double)new[j + i * img->w]
+                            / fr_sz;
+                }
+        }
+
+        free(img->data);
+        img->data = new;
+        img->h    = new_h;
+}
