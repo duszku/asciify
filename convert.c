@@ -164,3 +164,10 @@ scd_fac_x(struct image *img, double fac)
         img->data = new;
         img->w    = new_w;
 }
+
+void
+scd_fac(struct image *img, double fac)
+{
+        scd_fac_x(img, fac);
+        scd_fac_y(img, fac);
+}
