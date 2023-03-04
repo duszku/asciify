@@ -56,9 +56,8 @@ or, alternatively you may use the `-o` option:
 ./bin/asciify -o ~/save/me/HERE.txt ~/path/to/my/image.png
 ```
 
-## Development plans
+If your image is too big you may scale it down by a factor using:
 
-Planned features include:
-
-- fixing size of the output to given values
-- optional normalization of light level, so that each picture uses full charset
+```shell
+./bin/asciify -r<factor> ~/path/to/my/image.png
+```
