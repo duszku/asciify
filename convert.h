@@ -33,7 +33,8 @@
 } while (0)
 
 /* Default codomain for lightlevel mapping */
-#define DEF_LVLS " '^,;li<+-]}1(/frnvzYJL0Zwpbh*M&%@"
+#define DEF_LVLS " .,;^*+=$&@#"
+/* #define DEF_LVLS " '^,;li<+-]}1(/frnvzYJL0Zwpbh*M&%@" */
 
 struct image {
         unsigned     char *data;
