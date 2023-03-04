@@ -20,6 +20,7 @@
 
 #include <sys/stat.h>
 
+#include <errno.h>
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,8 +33,7 @@
 #endif
 
 struct opts {
-        long         widt;      /* width of the output in columns */
-        long         heig;      /* height of the output in lines */
+        double       sc_fac;    /* scaling factor */
         char        *lvls;      /* light levels string (nul = use default) */
         unsigned     b_lg : 1;  /* is background light? */
 };
@@ -73,6 +73,7 @@ main(int argc, char *const *argv)
                 ERROR("fclose");
 
         scd_fac_y(&img, 2);
+        scd_fac(&img, opts.sc_fac);
         print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
@@ -118,9 +119,9 @@ version(void)
 void
 def_opts(struct opts *opts)
 {
-        opts->widt = opts->heig = 0;
-        opts->lvls = NULL;
-        opts->b_lg = 0;
+        opts->sc_fac = 1;
+        opts->lvls   = NULL;
+        opts->b_lg   = 0;
 }
 
 /* Parse options, fill optstruct and return index of first positional arg */
@@ -129,7 +130,7 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
 {
         char c;
 
-        while ((c = getopt(argc, argv, "hio:s:v")) != -1) {
+        while ((c = getopt(argc, argv, "hio:r:s:v")) != -1) {
                 switch (c) {
                 case 'h':
                         help();
@@ -141,6 +142,11 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
                         close(STDOUT_FILENO);
                         if (open(optarg, O_WRONLY | O_CREAT, 0777) == -1)
                                 ERROR("open");
+                        break;
+                case 'r':
+                        errno = 0;
+                        if ((opts->sc_fac = strtod(optarg, NULL)) == 0 && errno)
+                                ERROR("strtod");
                         break;
                 case 's':
                         opts->lvls = calloc(strlen(optarg) + 1, 1);
