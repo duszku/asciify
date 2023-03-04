@@ -132,3 +132,35 @@ scd_fac_y(struct image *img, double fac)
         img->data = new;
         img->h    = new_h;
 }
+
+void
+scd_fac_x(struct image *img, double fac)
+{
+        unsigned     char *new;
+        int          fr_sz, fr_l, fr_r, new_w, i, j, k;
+        int          b_l, b_r;
+
+        fr_sz = ceil(fac);
+        fr_l  = ceil((double)(fr_sz - 1) / 2);
+        fr_r  = MAX(0, fr_sz - fr_l - 1);
+        new_w = img->w / fac;
+
+        if ((new = calloc(new_w * img->h, sizeof(char))) == NULL)
+                ERROR("calloc");
+
+        for (j = 0; j < img->h; ++j) {
+                for (i = 0; i < new_w; ++i) {
+                        b_l = MAX(0, i * fr_sz - fr_l);
+                        b_r = MIN(img->w, i * fr_sz + fr_r);
+
+                        for (k = b_l; k < b_r; ++k)
+                                new[i + j * new_w] += img->data[c2i(k, j, img)];
+
+                        new[i + j * new_w] = (double)new[i + j * new_w] / fr_sz;
+                }
+        }
+
+        free(img->data);
+        img->data = new;
+        img->w    = new_w;
+}
