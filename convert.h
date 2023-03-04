@@ -44,4 +44,9 @@ struct image {
 int      read_img(FILE *, struct image *);         /* read image from file */
 void     print_ascii(struct image *, int, char *); /* print to fd 1 */
 
+/* scale images DOWN by a factor */
+void     scd_fac_y(struct image *, double);
+void     scd_fac_x(struct image *, double);
+void     scd_fac(struct image *, double);
+
 #endif /* CONVERT_H */
