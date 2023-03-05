@@ -56,8 +56,16 @@ or, alternatively you may use the `-o` option:
 ./bin/asciify -o ~/save/me/HERE.txt ~/path/to/my/image.png
 ```
 
-If your image is too big you may scale it down by a factor using:
+If your image is too big you may scale it down by a factor using `-r` option:
 
 ```shell
 ./bin/asciify -r<factor> ~/path/to/my/image.png
+```
+
+Moreover, if it is composed only of a subset of greyscale, you may normalize its
+brightness, so that all characters from the printout string are used with `-n`
+option:
+
+```shell
+./bin/asciify -n ~/path/to/my/image.png
 ```
