@@ -166,3 +166,8 @@ scd_fac(struct image *img, double fac)
         scd_fac_x(img, fac);
         scd_fac_y(img, fac);
 }
+
+void
+norm_llvl(struct image *img)
+{
+}

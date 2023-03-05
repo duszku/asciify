@@ -62,6 +62,7 @@ main(int argc, char *const *argv)
 
         scd_fac_y(&img, 2);
         scd_fac(&img, opts.sc_fac);
+        norm_llvl(&img);
         print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
