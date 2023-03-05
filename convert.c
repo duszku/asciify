@@ -172,7 +172,6 @@ norm_llvl(struct image *img)
 {
         long         i;
         double       sc_fac;
-        unsigned     tmp;
         unsigned     char min, max;
 
         max = 0;
@@ -184,8 +183,6 @@ norm_llvl(struct image *img)
         }
 
         sc_fac = (double)UCHAR_MAX / (max - min);
-
-        fprintf(stderr, "min = %u\nmax = %u\nsc_fac = %lf\n", min, max, sc_fac);
 
         for (i = 0; i < img->h * img->w; ++i)
                 img->data[i] = (unsigned char)(sc_fac * (img->data[i] - min));
