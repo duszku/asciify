@@ -182,6 +182,9 @@ norm_llvl(struct image *img)
                 max = MAX(max, img->data[i]);
         }
 
+        if (max == min)
+                return;
+
         sc_fac = (double)UCHAR_MAX / (max - min);
 
         for (i = 0; i < img->h * img->w; ++i)
