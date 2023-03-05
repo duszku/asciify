@@ -24,6 +24,7 @@ struct opts {
         double       sc_fac;    /* scaling factor */
         char        *lvls;      /* light levels string (nul = use default) */
         unsigned     b_lg : 1;  /* is background light? */
+        unsigned     norm : 1;  /* should brightness be normalized? */
 };
 
 void     usage(void);
@@ -62,7 +63,10 @@ main(int argc, char *const *argv)
 
         scd_fac_y(&img, 2);
         scd_fac(&img, opts.sc_fac);
-        norm_llvl(&img);
+
+        if (opts.norm)
+                norm_llvl(&img);
+
         print_ascii(&img, opts.b_lg, opts.lvls);
 
         free(img.data);
@@ -119,7 +123,7 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
 {
         char c;
 
-        while ((c = getopt(argc, argv, "hio:r:s:v")) != -1) {
+        while ((c = getopt(argc, argv, "hino:r:s:v")) != -1) {
                 switch (c) {
                 case 'h':
                         help();
@@ -143,6 +147,9 @@ parse_opts(struct opts *opts, char *const *argv, int argc)
                                 ERROR("calloc");
 
                         strcpy(opts->lvls, optarg);
+                        break;
+                case 'n':
+                        opts->norm = 1;
                         break;
                 case 'v':
                         version();
