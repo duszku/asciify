@@ -11,3 +11,30 @@ asciify \- convert images to ascii-art
 .RB [ \-s
 .IR string ]
 .IR img
+.SH DESCRIPTION
+.PP
+Takes path to an image file as a positional argument, converts it to ascii-art
+and proceeds to print it to the standard output.
+.TP
+.B \-h
+display help information and exit
+.TP
+.B \-i
+invert brightness levels
+.TP
+.B \-n
+force use of entire brightness string
+.TP
+.B \-v
+display version number and exit
+.TP
+.BI \-o " outfile"
+print output to
+.I outfile
+instead of standard output
+.TP
+.BI \-r " fac"
+scale image down by a factor
+.TP
+.BI \-s " string"
+use a substitute brightness string
